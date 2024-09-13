@@ -1,0 +1,13 @@
+CC = aarch64-linux-gnu-gcc
+QEMU = qemu-aarch64
+QEMU_PREFIX = /usr/aarch64-linux-gnu
+TARGET = $(TARGET)
+SRC = $(TARGET).c
+
+all: $(TARGET)
+
+$(TARGET): $(SRC)
+	@$(CC) -o $@ $<
+
+run: $(TARGET)
+	@$(QEMU) -L $(QEMU_PREFIX) ./$(TARGET)

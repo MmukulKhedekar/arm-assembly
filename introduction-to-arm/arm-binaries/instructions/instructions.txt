@@ -1,0 +1,26 @@
+** pre-req commands:
+sudo apt install qemu-user qemu-user-static gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu binutils-aarch64-linux-gnu-dbg build-essential
+
+** to compile a statically linked aarch64 binary for a C program:
+
+aarch64-linux-gnu-gcc -static -o hello64 hello.c 
+qemu-aarch64 ./hello64 
+
+** to compile a dynamically linked aarch64 binary for a C program:
+
+aarch64-linux-gnu-gcc -o hello64dyn hello.c
+qemu-aarch64 -L /usr/aarch64-linux-gnu ./hello64dyn 
+
+** to assemble an aarch64 assembly program into unlinked object files
+
+aarch64-linux-gnu-as -o hello.o hello.S 
+aarch64-linux-gnu-ld -o hello hello.o
+qemu-aarch64 ./hello 
+
+** makefile to directly compile C programs for aarch64 
+make -f compile TARGET=<your_file_name_without_extension>
+make -f compile run TARGET=<your_file_name_without_extension>
+
+** makefile to assemble the aarch64 assembly files and execute them
+make -f assemble TARGET=<your_file_name_without_extension>
+make -f assemble run TARGET=<your_file_name_without_extension>

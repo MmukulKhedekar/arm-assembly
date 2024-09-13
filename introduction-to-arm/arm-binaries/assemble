@@ -1,0 +1,16 @@
+AS = aarch64-linux-gnu-as
+LD = aarch64-linux-gnu-ld
+QEMU = qemu-aarch64
+TARGET = $(TARGET)
+
+all: $(TARGET)
+
+$(TARGET).o: $(TARGET).S
+	@$(AS) -o $@ $<
+
+$(TARGET): $(TARGET).o
+	@$(LD) -o $@ $<
+
+run: $(TARGET)
+	@$(QEMU) ./$(TARGET)
+	@rm -f $(TARGET).o
